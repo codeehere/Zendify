@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zendify - Find Your Zender in a Second</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb);
+            background-size: 200% 200%;
+            animation: gradientMove 1000ms infinite alternate;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+            opacity: 0.9;
+            transition: background 0.3s;
+        }
+
+        .slider:hover {
+            background: #ccc;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #ff6f61;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .slider::-webkit-slider-thumb:hover {
+            background: #ff3d2f;
+        }
+
+        span {
+            font-size: 16px;
+            color: #555;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .funny-box {
+            position: absolute;
+            right: -250px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 200px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        #time {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #333;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-60%);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(-50%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Find your Zender: Hit the Scroller</h2>
+        <br>
+        <span>Male <input type="range" name="range" id="rng" value="50" min="0" max="100" class="slider"/> Female</span>
+        <div id="result">Neutral</div>
+        <div class="funny-box" id="funnyBox">"Let the slider decide your destiny!"</div>
+    </div>
+    <div id="time">Current Time: </div>
+    <script>
+        const slider = document.getElementById("rng");
+        const result = document.getElementById("result");
+        const funnyBox = document.getElementById("funnyBox");
+        const timeDisplay = document.getElementById("time");
+
+        const comments = [
+            "Are you sure about that?", 
+            "Sliding into the DMs like...", 
+            "That's an interesting choice!", 
+            "Slider says you're fabulous!", 
+            "Whoa! Slow down, champion!", 
+            "Keep going, you almost broke it!", 
+            "Slider whispering secrets...", 
+            "You're rocking the neutral zone!",
+            "Male? Female? Why not both?"
+        ];
+
+        slider.addEventListener("input", () => {
+            const value = slider.value;
+
+            if (value < 33) {
+                result.textContent = "Mostly Male";
+            } else if (value >= 33 && value <= 66) {
+                result.textContent = "Neutral";
+            } else {
+                result.textContent = "Mostly Female";
+            }
+
+            const randomComment = comments[Math.floor(Math.random() * comments.length)];
+            funnyBox.textContent = randomComment;
+        });
+
+        function updateTime() {
+            const now = new Date();
+            const formattedTime = now.toLocaleTimeString();
+            timeDisplay.textContent = `Current Time: ${formattedTime}`;
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
+
+</html>
